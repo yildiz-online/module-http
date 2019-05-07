@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 public class HttpCodeTest {
 
     @Nested
-    public static class IsError {
+    public class IsError {
 
         @Test
         public void happyFlow() {
@@ -55,7 +55,7 @@ public class HttpCodeTest {
     }
 
     @Nested
-    public static class IsSuccessful {
+    public class IsSuccessful {
 
         @Test
         public void happyFlow() {
@@ -77,7 +77,7 @@ public class HttpCodeTest {
     }
 
     @Nested
-    public static class IsRedirected {
+    public class IsRedirected {
 
         @Test
         public void happyFlow() {
