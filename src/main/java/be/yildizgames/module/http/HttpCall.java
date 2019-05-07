@@ -26,14 +26,12 @@ package be.yildizgames.module.http;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,8 +104,12 @@ public class HttpCall {
                 throw new IllegalStateException("error.http.content.retrieve");
             }
             return response.body();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {}", url, e);
+            throw new IllegalStateException("error.http.content.retrieve");
+        } catch (InterruptedException e) {
+            LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {}", url, e);
+            Thread.currentThread().interrupt();
             throw new IllegalStateException("error.http.content.retrieve");
         }
     }
