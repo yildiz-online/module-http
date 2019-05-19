@@ -37,6 +37,7 @@ import java.util.List;
 
 /**
  * Http call to retrieve text or binary content.
+ *
  * @author Grégory Van den Borre
  */
 public class HttpCall {

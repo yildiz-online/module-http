@@ -27,6 +27,7 @@ import java.net.URI;
 
 /**
  * Provide status about transfer of a file.
+ *
  * @author Grégory Van den Borre
  */
 public interface HttpTransferListener {

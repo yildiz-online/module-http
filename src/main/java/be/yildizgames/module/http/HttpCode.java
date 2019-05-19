@@ -25,6 +25,7 @@ package be.yildizgames.module.http;
 
 /**
  * Helper class to handle easily http codes.
+ *
  * @author Grégory Van den Borre
  */
 public class HttpCode {

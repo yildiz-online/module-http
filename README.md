@@ -8,7 +8,7 @@
 
 ## Requirements
 
-To build this module, you will need the latest JDK and Maven 3.
+To build this module, you will need the latest Java JDK and Maven 3.
 
 ## Coding Style and other information
 
