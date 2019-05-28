@@ -33,9 +33,12 @@ import java.net.URI;
 public interface HttpTransferListener {
 
     /**
+     * Notify when the transfer is updated.
      *
      * @param uri File transferred.
+     *
      * @param lastTransferred Size of the last received chunk of data.
+     *
      * @param totalTransferred Total size of all received data.
      */
     void received(URI uri, long lastTransferred, long totalTransferred);

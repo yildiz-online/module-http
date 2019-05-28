@@ -30,14 +30,35 @@ package be.yildizgames.module.http;
  */
 public class HttpCode {
 
+    /**
+     * Check if a code is in error range (400 - 599).
+     *
+     * @param code Code to check.
+     *
+     * @return true if it is an error code.
+     */
     public static boolean isError(int code) {
         return code >= 400 && code < 600;
     }
 
+    /**
+     * Check if a code is in success range (200 - 299).
+     *
+     * @param code Code to check.
+     *
+     * @return true if it is an error code.
+     */
     public static boolean isSuccessful(int code) {
         return code >= 200 && code < 300;
     }
 
+    /**
+     * Check if a code is in redirection range (300 - 399).
+     *
+     * @param code Code to check.
+     *
+     * @return true if it is an error code.
+     */
     public static boolean isRedirected(int code) {
         return code >= 300 && code < 400;
     }
