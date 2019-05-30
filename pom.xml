@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~ This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
   ~
@@ -22,29 +23,33 @@
   ~  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
   ~
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <name>Yildiz-Engine Module HTTP</name>
   <description>Module to make HTTP connections.</description>
-  <url>https://bitbucket.org/yildiz-engine-team/module-http</url>
+  <inceptionYear>2018</inceptionYear>
+  <url>https://engine.yildiz-games.be</url>
 
   <artifactId>module-http</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <packaging>jar</packaging>
-  <inceptionYear>2017</inceptionYear>
-  <scm>
-    <connection>scm:git:https://bitbucket.org/yildiz-engine-team/module-http</connection>
-    <developerConnection>scm:git:https://bitbucket.org/yildiz-engine-team/module-http</developerConnection>
-    <url>https://bitbucket.org/yildiz-engine-team/module-http</url>
-  </scm>
   <parent>
     <artifactId>parent</artifactId>
     <groupId>be.yildiz-games</groupId>
     <version>3.0.5</version>
   </parent>
+
+  <packaging>jar</packaging>
+
+  <scm>
+    <connection>scm:git:https://github.com/yildiz-online/module-http</connection>
+    <developerConnection>scm:git:https://github.com/yildiz-online/module-http</developerConnection>
+    <url>https://github.com/yildiz-online/module-http</url>
+  </scm>
 
   <dependencies>
     <dependency>
