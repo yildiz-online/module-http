@@ -67,6 +67,11 @@ public class HttpCall {
     }
 
     public final void receiveFile(URI uri, Path destination) {
+        try {
+            Files.createDirectories(destination.getParent());
+        } catch (IOException e) {
+            throw new IllegalStateException("error.file.create", e);
+        }
         try (
                 BufferedInputStream bis = new BufferedInputStream(this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream()));
                 BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(destination))) {
