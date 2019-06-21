@@ -81,7 +81,7 @@ public class HttpCall {
                 }
             }
         } catch (IOException e) {
-            throw new IllegalStateException("error.http.file.retrieve");
+            throw new IllegalStateException("error.http.file.retrieve", e);
         }
     }
 
