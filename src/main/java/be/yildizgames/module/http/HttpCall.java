@@ -26,6 +26,7 @@ package be.yildizgames.module.http;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -64,6 +65,10 @@ public class HttpCall {
      */
     public final String getText(final URI uri) {
         return this.getStream(uri, HttpResponse.BodyHandlers.ofString());
+    }
+
+    public final InputStream getInputStream(final URI uri) {
+        return this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream());
     }
 
     public final void receiveFile(URI uri, Path destination) {
