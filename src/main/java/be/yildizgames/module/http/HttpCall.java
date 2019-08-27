@@ -111,15 +111,15 @@ public class HttpCall {
         try {
             HttpResponse<T> response = this.client.send(request, bodyHandler);
             if (HttpCode.isError(response.statusCode())) {
-                LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {}", url);
+                LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0} status: {1}", url, response.statusCode());
                 throw new IllegalStateException("error.http.content.retrieve");
             }
             return response.body();
         } catch (IOException e) {
-            LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {}", url, e);
+            LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0}", url, e);
             throw new IllegalStateException("error.http.content.retrieve");
         } catch (InterruptedException e) {
-            LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {}", url, e);
+            LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0}", url, e);
             Thread.currentThread().interrupt();
             throw new IllegalStateException("error.http.content.retrieve");
         }
