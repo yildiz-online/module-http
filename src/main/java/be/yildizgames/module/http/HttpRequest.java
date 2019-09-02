@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,12 +40,12 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public class HttpCall {
+public class HttpRequest {
 
     /**
      * Logger.
      */
-    private static final System.Logger LOGGER = System.getLogger(HttpCall.class.toString());
+    private static final System.Logger LOGGER = System.getLogger(HttpRequest.class.toString());
 
     /**
      * Buffer size.
@@ -107,7 +106,7 @@ public class HttpCall {
      * @throws IllegalStateException If an exception occurs.
      */
     private <T> T getStream(final URI url, HttpResponse.BodyHandler<T> bodyHandler){
-        HttpRequest request = HttpRequest.newBuilder(url).build();
+        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder(url).build();
         try {
             HttpResponse<T> response = this.client.send(request, bodyHandler);
             if (HttpCode.isError(response.statusCode())) {
