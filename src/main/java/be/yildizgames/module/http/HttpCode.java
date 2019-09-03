@@ -31,6 +31,13 @@ package be.yildizgames.module.http;
 public class HttpCode {
 
     /**
+     * Private constructor to prevent instantiation.
+     */
+    private HttpCode() {
+        super();
+    }
+
+    /**
      * Check if a code is in error range (400 - 599).
      *
      * @param code Code to check.
