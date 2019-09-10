@@ -1,4 +1,4 @@
-module be.yildizgames.module.http {
+open module be.yildizgames.module.http {
 
     requires java.net.http;
 

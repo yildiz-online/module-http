@@ -30,69 +30,69 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Grégory Van den Borre
  */
-public class HttpCodeTest {
+class HttpCodeTest {
 
     @Nested
-    public class IsError {
+    class IsError {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             for(int i = 400; i < 600; i++) {
                 Assertions.assertTrue(HttpCode.isError(i));
             }
         }
 
         @Test
-        public void tooLow() {
+        void tooLow() {
             Assertions.assertFalse(HttpCode.isError(399));
         }
 
         @Test
-        public void tooHigh() {
+        void tooHigh() {
             Assertions.assertFalse(HttpCode.isError(600));
         }
 
     }
 
     @Nested
-    public class IsSuccessful {
+    class IsSuccessful {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             for(int i = 200; i < 300; i++) {
                 Assertions.assertTrue(HttpCode.isSuccessful(i));
             }
         }
 
         @Test
-        public void tooLow() {
+        void tooLow() {
             Assertions.assertFalse(HttpCode.isSuccessful(199));
         }
 
         @Test
-        public void tooHigh() {
+        void tooHigh() {
             Assertions.assertFalse(HttpCode.isSuccessful(300));
         }
 
     }
 
     @Nested
-    public class IsRedirected {
+    class IsRedirected {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             for(int i = 300; i < 400; i++) {
                 Assertions.assertTrue(HttpCode.isRedirected(i));
             }
         }
 
         @Test
-        public void tooLow() {
+        void tooLow() {
             Assertions.assertFalse(HttpCode.isRedirected(299));
         }
 
         @Test
-        public void tooHigh() {
+        void tooHigh() {
             Assertions.assertFalse(HttpCode.isRedirected(400));
         }
 
