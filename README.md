@@ -3,8 +3,8 @@
 
 ## Features
 
-* Text transfert.
-* File transfert.
+* Text transfer.
+* File transfer.
 
 ## Requirements
 
