@@ -23,6 +23,8 @@
  */
 package be.yildizgames.module.http;
 
+import org.apiguardian.api.API;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -62,14 +64,17 @@ public class HttpRequest {
      * @param uri URI to reach.
      * @return The content of the uri destination.
      */
+    @API(status= API.Status.STABLE)
     public final String getText(final URI uri) {
         return this.getStream(uri, HttpResponse.BodyHandlers.ofString());
     }
 
+    @API(status= API.Status.STABLE)
     public final InputStream getInputStream(final URI uri) {
         return this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream());
     }
 
+    @API(status= API.Status.STABLE)
     public final void receiveFile(URI uri, Path destination) {
         try {
             Files.createDirectories(destination.getParent());
@@ -94,6 +99,7 @@ public class HttpRequest {
         }
     }
 
+    @API(status= API.Status.STABLE)
     public final void addTransferListener(HttpTransferListener l) {
         this.listeners.add(l);
     }

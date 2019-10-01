@@ -23,6 +23,8 @@
  */
 package be.yildizgames.module.http;
 
+import org.apiguardian.api.API;
+
 import java.net.URI;
 
 /**
@@ -41,5 +43,6 @@ public interface HttpTransferListener {
      *
      * @param totalTransferred Total size of all received data.
      */
+    @API(status= API.Status.STABLE)
     void received(URI uri, long lastTransferred, long totalTransferred);
 }

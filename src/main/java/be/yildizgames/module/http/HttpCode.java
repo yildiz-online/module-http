@@ -23,6 +23,8 @@
  */
 package be.yildizgames.module.http;
 
+import org.apiguardian.api.API;
+
 /**
  * Helper class to handle easily http codes.
  *
@@ -44,6 +46,7 @@ public class HttpCode {
      *
      * @return true if it is an error code.
      */
+    @API(status= API.Status.STABLE)
     public static boolean isError(int code) {
         return code >= 400 && code < 600;
     }
@@ -55,6 +58,7 @@ public class HttpCode {
      *
      * @return true if it is an error code.
      */
+    @API(status= API.Status.STABLE)
     public static boolean isSuccessful(int code) {
         return code >= 200 && code < 300;
     }
@@ -66,6 +70,7 @@ public class HttpCode {
      *
      * @return true if it is an error code.
      */
+    @API(status= API.Status.STABLE)
     public static boolean isRedirected(int code) {
         return code >= 300 && code < 400;
     }
