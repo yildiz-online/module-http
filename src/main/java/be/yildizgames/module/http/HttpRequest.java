@@ -23,6 +23,7 @@
  */
 package be.yildizgames.module.http;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apiguardian.api.API;
 
 import java.io.BufferedInputStream;
@@ -67,6 +68,24 @@ public class HttpRequest {
     @API(status= API.Status.STABLE)
     public final String getText(final URI uri) {
         return this.getStream(uri, HttpResponse.BodyHandlers.ofString());
+    }
+
+    /**
+     * Make a request expecting a json object, and return
+     * @param uri Address to call.
+     * @param clazz Class of the object to return.
+     * @param <T> Type of the object to return.
+     * @return The mapped object.
+     */
+    @API(status= API.Status.STABLE)
+    public final <T> T getObject(String uri, Class<T> clazz) {
+        try {
+            String content = this.getText(URI.create(uri));
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(content,clazz);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @API(status= API.Status.STABLE)
