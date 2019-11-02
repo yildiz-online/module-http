@@ -30,6 +30,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
@@ -71,6 +73,17 @@ public class HttpRequest {
     }
 
     /**
+     * Request the text content.
+     *
+     * @param uri URI to reach.
+     * @return The content of the uri destination.
+     */
+    @API(status= API.Status.STABLE)
+    public final String getText(final String uri) {
+        return this.getText(URI.create(uri));
+    }
+
+    /**
      * Make a request expecting a json object, and return
      * @param uri Address to call.
      * @param clazz Class of the object to return.
@@ -78,9 +91,9 @@ public class HttpRequest {
      * @return The mapped object.
      */
     @API(status= API.Status.STABLE)
-    public final <T> T getObject(String uri, Class<T> clazz) {
+    public final <T> T getObject(URI uri, Class<T> clazz) {
         try {
-            String content = this.getText(URI.create(uri));
+            String content = this.getText(uri);
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(content,clazz);
         } catch (IOException e) {
@@ -89,8 +102,28 @@ public class HttpRequest {
     }
 
     @API(status= API.Status.STABLE)
+    public final <T> T getObject(String uri, Class<T> clazz) {
+        return this.getObject(URI.create(uri), clazz);
+    }
+
+    @API(status= API.Status.STABLE)
     public final InputStream getInputStream(final URI uri) {
         return this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream());
+    }
+
+    @API(status= API.Status.STABLE)
+    public final InputStream getInputStream(final String uri) {
+        return this.getInputStream(URI.create(uri));
+    }
+
+    @API(status= API.Status.STABLE)
+    public final Reader getReader(final URI uri) {
+        return new InputStreamReader(this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream()));
+    }
+
+    @API(status= API.Status.STABLE)
+    public final Reader getReader(final String uri) {
+        return this.getReader(URI.create(uri));
     }
 
     @API(status= API.Status.STABLE)
