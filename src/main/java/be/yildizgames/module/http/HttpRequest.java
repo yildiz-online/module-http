@@ -37,6 +37,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,16 @@ public class HttpRequest {
     private final HttpClient client = HttpClient.newHttpClient();
 
     private final List<HttpTransferListener> listeners = new ArrayList<>();
+
+    private final int timeout;
+
+    public HttpRequest(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public HttpRequest() {
+        this.timeout = -1;
+    }
 
     /**
      * Request the text content.
@@ -164,7 +175,12 @@ public class HttpRequest {
      * @throws IllegalStateException If an exception occurs.
      */
     private <T> T getStream(final URI url, HttpResponse.BodyHandler<T> bodyHandler){
-        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder(url).build();
+        java.net.http.HttpRequest request;
+        if(this.timeout == -1) {
+            request = java.net.http.HttpRequest.newBuilder(url).build();
+        } else {
+            request = java.net.http.HttpRequest.newBuilder(url).timeout(Duration.ofSeconds(timeout)).build();
+        }
         try {
             HttpResponse<T> response = this.client.send(request, bodyHandler);
             if (HttpCode.isError(response.statusCode())) {
