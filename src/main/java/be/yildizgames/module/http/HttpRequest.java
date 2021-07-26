@@ -138,6 +138,24 @@ public class HttpRequest {
     }
 
     @API(status= API.Status.STABLE)
+    public final void sendFile(URI uri, Path origin, String mime) {
+        try {
+            var request = java.net.http.HttpRequest.newBuilder()
+                    .header("Content-Type", mime)
+                    .uri(uri)
+                    .POST(java.net.http.HttpRequest.BodyPublishers.ofFile(origin))
+                    .build();
+            var response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (HttpCode.isError(response.statusCode())) {
+                LOGGER.log(System.Logger.Level.ERROR, "Error sending content: {0} status: {1}", uri, response.statusCode());
+                throw new IllegalStateException("error.http.content.send");
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("error.http.file.send", e);
+        }
+    }
+
+    @API(status= API.Status.STABLE)
     public final void receiveFile(URI uri, Path destination) {
         try {
             Files.createDirectories(destination.getParent());
