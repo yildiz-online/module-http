@@ -57,6 +57,7 @@ public class HttpRequest {
      * Buffer size.
      */
     private static final int BUFFER_SIZE = 1024;
+    public static final String ERROR_HTTP_CONTENT_RETRIEVE = "error.http.content.retrieve";
 
     private final HttpClient client = HttpClient.newHttpClient();
 
@@ -69,7 +70,7 @@ public class HttpRequest {
     }
 
     public HttpRequest() {
-        this.timeout = -1;
+        this(-1);
     }
 
     /**
@@ -150,6 +151,9 @@ public class HttpRequest {
                 LOGGER.log(System.Logger.Level.ERROR, "Error sending content: {0} status: {1}", uri, response.statusCode());
                 throw new IllegalStateException("error.http.content.send");
             }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("error.http.file.send", e);
         } catch (Exception e) {
             throw new IllegalStateException("error.http.file.send", e);
         }
@@ -203,16 +207,16 @@ public class HttpRequest {
             HttpResponse<T> response = this.client.send(request, bodyHandler);
             if (HttpCode.isError(response.statusCode())) {
                 LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0} status: {1}", url, response.statusCode());
-                throw new IllegalStateException("error.http.content.retrieve");
+                throw new IllegalStateException(ERROR_HTTP_CONTENT_RETRIEVE);
             }
             return response.body();
         } catch (IOException e) {
             LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0}", url, e);
-            throw new IllegalStateException("error.http.content.retrieve");
+            throw new IllegalStateException(ERROR_HTTP_CONTENT_RETRIEVE);
         } catch (InterruptedException e) {
             LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0}", url, e);
             Thread.currentThread().interrupt();
-            throw new IllegalStateException("error.http.content.retrieve");
+            throw new IllegalStateException(ERROR_HTTP_CONTENT_RETRIEVE);
         }
     }
 }
