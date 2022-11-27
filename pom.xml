@@ -35,7 +35,7 @@
   <url>https://engine.yildiz-games.be</url>
 
   <artifactId>module-http</artifactId>
-  <version>1.2.10-SNAPSHOT</version>
+  <version>1.2.10</version>
 
   <parent>
     <artifactId>parent</artifactId>
