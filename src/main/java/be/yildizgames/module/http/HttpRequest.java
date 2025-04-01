@@ -34,7 +34,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -57,6 +56,7 @@ public class HttpRequest {
      * Buffer size.
      */
     private static final int BUFFER_SIZE = 1024;
+
     public static final String ERROR_HTTP_CONTENT_RETRIEVE = "error.http.content.retrieve";
 
     private final HttpClient client = HttpClient.newHttpClient();
@@ -81,7 +81,7 @@ public class HttpRequest {
      */
     @API(status= API.Status.STABLE)
     public final String getText(final URI uri) {
-        return this.getStream(uri, HttpResponse.BodyHandlers.ofString());
+        return this.getStream(uri, java.net.http.HttpResponse.BodyHandlers.ofString());
     }
 
     /**
@@ -95,6 +95,14 @@ public class HttpRequest {
         return this.getText(URI.create(uri));
     }
 
+    public final HttpResponse<String> getTextResponse(final URI uri) {
+        return this.getStreamResponse(uri, java.net.http.HttpResponse.BodyHandlers.ofString());
+    }
+
+    public final HttpResponse<String> getTextResponse(final String uri) {
+        return this.getTextResponse(URI.create(uri));
+    }
+
     /**
      * Make a request expecting a json object, and return
      * @param uri Address to call.
@@ -105,8 +113,8 @@ public class HttpRequest {
     @API(status= API.Status.STABLE)
     public final <T> T getObject(URI uri, Class<T> clazz) {
         try {
-            String content = this.getText(uri);
-            ObjectMapper mapper = new ObjectMapper();
+            var content = this.getText(uri);
+            var mapper = new ObjectMapper();
             return mapper.readValue(content,clazz);
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -120,7 +128,7 @@ public class HttpRequest {
 
     @API(status= API.Status.STABLE)
     public final InputStream getInputStream(final URI uri) {
-        return this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream());
+        return this.getStream(uri, java.net.http.HttpResponse.BodyHandlers.ofInputStream());
     }
 
     @API(status= API.Status.STABLE)
@@ -130,7 +138,7 @@ public class HttpRequest {
 
     @API(status= API.Status.STABLE)
     public final Reader getReader(final URI uri) {
-        return new InputStreamReader(this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream()));
+        return new InputStreamReader(this.getStream(uri, java.net.http.HttpResponse.BodyHandlers.ofInputStream()));
     }
 
     @API(status= API.Status.STABLE)
@@ -146,7 +154,7 @@ public class HttpRequest {
                     .uri(uri)
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofFile(origin))
                     .build();
-            var response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
+            var response = this.client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
             if (HttpCode.isError(response.statusCode())) {
                 LOGGER.log(System.Logger.Level.ERROR, "Error sending content: {0} status: {1}", uri, response.statusCode());
                 throw new IllegalStateException("error.http.content.send");
@@ -167,9 +175,9 @@ public class HttpRequest {
             throw new IllegalStateException("error.file.create", e);
         }
         try (
-                BufferedInputStream bis = new BufferedInputStream(this.getStream(uri, HttpResponse.BodyHandlers.ofInputStream()));
-                BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(destination))) {
-            byte[] buf = new byte[BUFFER_SIZE];
+                var bis = new BufferedInputStream(this.getStream(uri, java.net.http.HttpResponse.BodyHandlers.ofInputStream()));
+                var bos = new BufferedOutputStream(Files.newOutputStream(destination))) {
+            var buf = new byte[BUFFER_SIZE];
             int len;
             long currentlyTransferred = 0;
             while ((len = bis.read(buf)) > 0) {
@@ -196,7 +204,7 @@ public class HttpRequest {
      * @return The stream for the request url.
      * @throws IllegalStateException If an exception occurs.
      */
-    private <T> T getStream(final URI url, HttpResponse.BodyHandler<T> bodyHandler){
+    private <T> T getStream(final URI url, java.net.http.HttpResponse.BodyHandler<T> bodyHandler){
         java.net.http.HttpRequest request;
         if(this.timeout == -1) {
             request = java.net.http.HttpRequest.newBuilder(url).build();
@@ -204,7 +212,7 @@ public class HttpRequest {
             request = java.net.http.HttpRequest.newBuilder(url).timeout(Duration.ofSeconds(timeout)).build();
         }
         try {
-            HttpResponse<T> response = this.client.send(request, bodyHandler);
+            var response = this.client.send(request, bodyHandler);
             if (HttpCode.isError(response.statusCode())) {
                 LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0} status: {1}", url, response.statusCode());
                 throw new IllegalStateException(ERROR_HTTP_CONTENT_RETRIEVE);
@@ -217,6 +225,21 @@ public class HttpRequest {
             LOGGER.log(System.Logger.Level.ERROR, "Error retrieving content: {0}", url, e);
             Thread.currentThread().interrupt();
             throw new IllegalStateException(ERROR_HTTP_CONTENT_RETRIEVE);
+        }
+    }
+
+    private <T> be.yildizgames.module.http.HttpResponse<T> getStreamResponse(final URI url, java.net.http.HttpResponse.BodyHandler<T> bodyHandler){
+        java.net.http.HttpRequest request;
+        if(this.timeout == -1) {
+            request = java.net.http.HttpRequest.newBuilder(url).build();
+        } else {
+            request = java.net.http.HttpRequest.newBuilder(url).timeout(Duration.ofSeconds(timeout)).build();
+        }
+        try {
+            var response = this.client.send(request, bodyHandler);
+            return new HttpResponse<>(response.statusCode(), response.body());
+        } catch (Throwable e) {
+            return new HttpResponse<>(e);
         }
     }
 }
