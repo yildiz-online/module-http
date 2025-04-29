@@ -1,6 +1,6 @@
 /*
  * This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
- *  Copyright (c) 2019 Grégory Van den Borre
+ *  Copyright (c) 2025 Grégory Van den Borre
  *  More infos available: https://engine.yildiz-games.be
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  *  documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -15,56 +15,25 @@
  */
 package be.yildizgames.module.http;
 
-import org.apiguardian.api.API;
+import java.util.ServiceLoader;
 
 /**
- * Helper class to handle easily http codes.
  *
  * @author Grégory Van den Borre
  */
-public class HttpCode {
+public interface HttpClientBuilder {
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private HttpCode() {
-        super();
+    static HttpClientBuilder provide() {
+        return ServiceLoader.load(HttpClientBuilder.class).findFirst().orElseThrow();
     }
 
     /**
-     * Check if a code is in error range (400 - 599).
-     *
-     * @param code Code to check.
-     *
-     * @return true if it is an error code.
+     * Build a new instance of the client with no timeout.
+     * @return A new instance of the client, never null.
      */
-    @API(status= API.Status.STABLE)
-    public static boolean isError(int code) {
-        return code >= 400 && code < 600;
-    }
+    HttpClient getHttpClient();
 
-    /**
-     * Check if a code is in success range (200 - 299).
-     *
-     * @param code Code to check.
-     *
-     * @return true if it is an error code.
-     */
-    @API(status= API.Status.STABLE)
-    public static boolean isSuccessful(int code) {
-        return code >= 200 && code < 300;
-    }
 
-    /**
-     * Check if a code is in redirection range (300 - 399).
-     *
-     * @param code Code to check.
-     *
-     * @return true if it is an error code.
-     */
-    @API(status= API.Status.STABLE)
-    public static boolean isRedirected(int code) {
-        return code >= 300 && code < 400;
-    }
+    HttpClient getHttpClient(int timeout);
 
 }
