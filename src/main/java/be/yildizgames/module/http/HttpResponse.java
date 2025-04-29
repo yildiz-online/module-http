@@ -38,7 +38,7 @@ public class HttpResponse<T> {
         this.headers = headers;
     }
 
-    public HttpResponse(Throwable error, Headers headers) {
+    public HttpResponse(Throwable error) {
         super();
         this.httpCode = -1;
         this.body = null;
