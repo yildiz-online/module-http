@@ -53,34 +53,37 @@ public interface HttpClient {
 
     /**
      * Make a request expecting a json object, and return
-     * @param uri Address to call.
+     * @param to Address to call.
      * @param clazz Class of the object to return.
      * @param <T> Type of the object to return.
      * @return The mapped object.
      */
     @API(status=API.Status.STABLE)
-    <T> T getObject(URI uri, Class<T> clazz);
+    <T> T getObject(URI to, Class<T> clazz);
 
     @API(status=API.Status.STABLE)
-    <T> T getObject(String uri, Class<T> clazz);
+    <T> T getObject(String to, Class<T> clazz);
 
     @API(status=API.Status.STABLE)
-    InputStream getInputStream(final URI uri);
+    InputStream getInputStream(final URI to);
 
     @API(status=API.Status.STABLE)
-    InputStream getInputStream(final String uri);
+    InputStream getInputStream(final String to);
 
     @API(status=API.Status.STABLE)
-    Reader getReader(final URI uri);
+    Reader getReader(final URI to);
 
     @API(status=API.Status.STABLE)
-    Reader getReader(final String uri);
+    Reader getReader(final String to);
 
     @API(status=API.Status.STABLE)
-    void sendFile(URI uri, Path origin, String mime);
+    void sendFile(URI to, Path file, String mime);
+
+    @API(status = API.Status.STABLE)
+    HttpResponse<String> sendFileResponse(URI to, Path file, String mime);
 
     @API(status=API.Status.STABLE)
-    void receiveFile(URI uri, Path destination);
+    void receiveFile(URI to, Path destination);
 
     @API(status=API.Status.STABLE)
     void addTransferListener(HttpTransferListener l);
