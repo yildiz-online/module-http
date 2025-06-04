@@ -35,7 +35,7 @@ public interface HttpClient {
      * @param uri URI to reach.
      * @return The content of the uri destination.
      */
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     String getText(final URI uri);
 
     /**
@@ -44,7 +44,7 @@ public interface HttpClient {
      * @param uri URI to reach.
      * @return The content of the uri destination.
      */
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     String getText(final String uri);
 
     HttpResponse<String> getTextResponse(final URI uri);
@@ -53,38 +53,47 @@ public interface HttpClient {
 
     /**
      * Make a request expecting a json object, and return
-     * @param to Address to call.
+     *
+     * @param to    Address to call.
      * @param clazz Class of the object to return.
-     * @param <T> Type of the object to return.
+     * @param <T>   Type of the object to return.
      * @return The mapped object.
      */
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     <T> T getObject(URI to, Class<T> clazz);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     <T> T getObject(String to, Class<T> clazz);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     InputStream getInputStream(final URI to);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     InputStream getInputStream(final String to);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     Reader getReader(final URI to);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     Reader getReader(final String to);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     void sendFile(URI to, Path file, String mime);
 
+    /**
+     * Send a file and receive a response.
+     *
+     * @param to   Destination.
+     * @param file File to send.
+     * @param mime File mime type.
+     * @return A text response.
+     */
     @API(status = API.Status.STABLE)
     HttpResponse<String> sendFileResponse(URI to, Path file, String mime);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     void receiveFile(URI to, Path destination);
 
-    @API(status=API.Status.STABLE)
+    @API(status = API.Status.STABLE)
     void addTransferListener(HttpTransferListener l);
 }
