@@ -31,9 +31,9 @@ public interface HttpClientBuilder {
      * Build a new instance of the client with no timeout.
      * @return A new instance of the client, never null.
      */
-    HttpClient getHttpClient();
+    HttpClient buildHttpClient();
 
 
-    HttpClient getHttpClient(int timeout);
+    HttpClient buildHttpClient(int timeout);
 
 }
