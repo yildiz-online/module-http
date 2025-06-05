@@ -24,6 +24,7 @@ import java.nio.file.Path;
 
 /**
  * Http call to retrieve text or binary content.
+ * It can either provide simple call or call with a behavior to be notified when the call is done.
  *
  * @author Grégory Van den Borre
  */
@@ -32,23 +33,27 @@ public interface HttpClient {
     /**
      * Request the text content.
      *
-     * @param uri URI to reach.
-     * @return The content of the uri destination.
+     * @param to URI to reach, cannot be null.
+     * @throws IllegalStateException in case of failure, being technical or by receiving a 4xx or 5xx http code.
+     * @return The body of the response to the call to the given URI, can be empty, never null.
      */
     @API(status = API.Status.STABLE)
-    String getText(final URI uri);
+    String getText(final URI to);
 
     /**
      * Request the text content.
      *
-     * @param uri URI to reach.
-     * @return The content of the uri destination.
+     * @param to URI to reach, must be a valid URI, cannot be null.
+     * @throws IllegalStateException in case of failure, being technical or by receiving a 4xx or 5xx http code.
+     * @return The body of the response to the call to the given URI, can be empty, never null.
      */
     @API(status = API.Status.STABLE)
-    String getText(final String uri);
+    String getText(final String to);
 
+    @API(status = API.Status.STABLE)
     HttpResponse<String> getTextResponse(final URI uri);
 
+    @API(status = API.Status.STABLE)
     HttpResponse<String> getTextResponse(final String uri);
 
     /**
