@@ -56,6 +56,8 @@ public interface HttpClient {
     @API(status = API.Status.STABLE)
     HttpResponse<String> getTextResponse(final String uri);
 
+    <T,R> HttpResponse<R> postObject(final String uri, T objectToPost, Class<R> responseClazz);
+
     /**
      * Make a request expecting a json object, and return
      *
