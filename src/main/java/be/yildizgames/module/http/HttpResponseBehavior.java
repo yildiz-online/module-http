@@ -13,7 +13,6 @@
  *  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
 package be.yildizgames.module.http;
 
 /**
@@ -21,9 +20,9 @@ package be.yildizgames.module.http;
  */
 public interface HttpResponseBehavior<T> {
 
-    void onHttpSuccess(int httpCode, T body);
+    void onHttpSuccess(int httpCode, Headers headers, T body);
 
-    default void onHttpError(int httpCode, T body) {}
+    default void onHttpError(int httpCode,  Headers headers, T body) {}
 
     default void onCallFailure(Throwable t) {}
 }

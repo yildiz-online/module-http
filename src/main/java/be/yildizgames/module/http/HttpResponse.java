@@ -13,8 +13,9 @@
  *  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
 package be.yildizgames.module.http;
+
+import java.util.List;
 
 /**
  * @author Grégory Van den Borre
@@ -25,13 +26,16 @@ public class HttpResponse<T> {
 
     private final T body;
 
+    private final Headers headers;
+
     private final Throwable error;
 
-    public HttpResponse(int httpCode, T body) {
+    public HttpResponse(int httpCode, T body, Headers headers) {
         super();
         this.httpCode = httpCode;
         this.body = body;
         this.error = null;
+        this.headers = headers;
     }
 
     public HttpResponse(Throwable error) {
@@ -39,15 +43,16 @@ public class HttpResponse<T> {
         this.httpCode = -1;
         this.body = null;
         this.error = error;
+        this.headers = new Headers(List.of());
     }
 
     public final void handle(HttpResponseBehavior<T> behavior) {
         if(this.error != null) {
             behavior.onCallFailure(this.error);
         } else if(HttpCode.isSuccessful(this.httpCode)) {
-            behavior.onHttpSuccess(this.httpCode, this.body);
+            behavior.onHttpSuccess(this.httpCode, this.headers, this.body);
         } else if (HttpCode.isError(this.httpCode)) {
-            behavior.onHttpError(this.httpCode, this.body);
+            behavior.onHttpError(this.httpCode, this.headers, this.body);
         }
     }
 }
