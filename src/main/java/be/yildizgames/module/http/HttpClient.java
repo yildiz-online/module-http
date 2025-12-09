@@ -99,6 +99,9 @@ public interface HttpClient {
     HttpResponse<String> sendFileResponse(URI to, Path file, String mime);
 
     @API(status = API.Status.STABLE)
+    HttpResponse<String> sendBinaryResponse(URI to, byte[] content, String mime);
+
+    @API(status = API.Status.STABLE)
     void receiveFile(URI to, Path destination);
 
     @API(status = API.Status.STABLE)
