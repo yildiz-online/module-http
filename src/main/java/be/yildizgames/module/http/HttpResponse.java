@@ -38,6 +38,14 @@ public class HttpResponse<T> {
         this.headers = headers;
     }
 
+    public HttpResponse(int httpCode, Headers headers) {
+        super();
+        this.httpCode = httpCode;
+        this.body = null;
+        this.error = null;
+        this.headers = headers;
+    }
+
     public HttpResponse(Throwable error) {
         super();
         this.httpCode = -1;
