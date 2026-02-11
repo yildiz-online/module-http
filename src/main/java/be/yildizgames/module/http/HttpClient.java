@@ -44,6 +44,9 @@ public interface HttpClient {
     @API(status = API.Status.STABLE)
     HttpResponse<Path> getFile(String to, Path destination, HttpTransferListener l);
 
+    @API(status = API.Status.STABLE)
+    HttpResponse<Path> getFile(String to, Path destination);
+
     /**
      * Send a file and receive a response.
      *
