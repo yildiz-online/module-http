@@ -13,6 +13,11 @@
  *  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+/**
+ * This module provides http client capabilities, it needs an implementation module to be used.
+ *
+ * @author Grégory Van den Borre
+ */
 open module be.yildizgames.module.http {
 
     uses be.yildizgames.module.http.HttpClientBuilder;

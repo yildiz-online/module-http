@@ -21,6 +21,8 @@ import java.util.Map;
 /**
  * List of headers for an http request or response.
  *
+ * @param headers List of headers, can be empty, never null.
+ *
  * @author Grégory Van den Borre
  */
 public record Headers(List<Header> headers) {

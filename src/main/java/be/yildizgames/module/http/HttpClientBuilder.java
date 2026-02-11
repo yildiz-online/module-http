@@ -18,22 +18,40 @@ package be.yildizgames.module.http;
 import java.util.ServiceLoader;
 
 /**
+ * Builder for http clients.
+ * The implementation is provided by service loader.
+ * If no implementation is found, an exception is thrown.
+ * If several implementations are found, the first one is used.
  *
  * @author Grégory Van den Borre
  */
 public interface HttpClientBuilder {
 
+
+    /**
+     * Provide the httpClient implementation.
+     *
+     * @return The httpClient implementation, never null.
+     * @throws Exception if no implementation is found.
+     */
     static HttpClientBuilder provide() {
         return ServiceLoader.load(HttpClientBuilder.class).findFirst().orElseThrow();
     }
 
     /**
      * Build a new instance of the client with no timeout.
+     *
      * @return A new instance of the client, never null.
      */
     HttpClient buildHttpClient();
 
 
+    /**
+     * Build a new instance of the client.
+     *
+     * @param timeout Timeout in seconds.
+     * @return A new instance of the client, never null.
+     */
     HttpClient buildHttpClient(int timeout);
 
 }

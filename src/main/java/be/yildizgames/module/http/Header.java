@@ -20,6 +20,9 @@ import java.util.List;
 /**
  * Header for an http request or response.
  *
+ * @param key Header name.
+ * @param value Header value, can be empty, never null.
+ *
  * @author Grégory Van den Borre
  */
 public record Header(String key, List<String> value) {
