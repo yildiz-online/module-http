@@ -18,6 +18,7 @@ package be.yildizgames.module.http;
 import java.util.List;
 
 /**
+ * Header for an http request or response.
  *
  * @author Grégory Van den Borre
  */

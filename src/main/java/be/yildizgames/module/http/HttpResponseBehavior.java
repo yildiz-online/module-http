@@ -16,13 +16,36 @@
 package be.yildizgames.module.http;
 
 /**
+ * Behavior to apply on an http response.
+ *
  * @author Grégory Van den Borre
  */
 public interface HttpResponseBehavior<T> {
 
+    /**
+     * Logic to call if the response has a success code 2xx.
+     *
+     * @param httpCode HTTP response code.
+     * @param headers  Headers of the response.
+     * @param body     Body of the response.
+     */
     void onHttpSuccess(int httpCode, Headers headers, T body);
 
-    default void onHttpError(int httpCode,  Headers headers, T body) {}
+    /**
+     * Logic to call if the response has an error code 4xx or 5xx.
+     *
+     * @param httpCode
+     * @param headers
+     * @param body
+     */
+    default void onHttpError(int httpCode, Headers headers, T body) {
+    }
 
-    default void onCallFailure(Throwable t) {}
+    /**
+     * Logic to call if the call failed because of a network issue or an exception.
+     *
+     * @param t Thrown exception.
+     */
+    default void onCallFailure(Throwable t) {
+    }
 }

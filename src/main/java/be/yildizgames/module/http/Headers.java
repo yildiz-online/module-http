@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * List of headers for an http request or response.
  *
  * @author Grégory Van den Borre
  */
