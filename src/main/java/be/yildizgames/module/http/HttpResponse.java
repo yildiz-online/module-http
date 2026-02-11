@@ -16,6 +16,7 @@
 package be.yildizgames.module.http;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Grégory Van den Borre
@@ -62,5 +63,9 @@ public class HttpResponse<T> {
         } else if (HttpCode.isError(this.httpCode)) {
             behavior.onHttpError(this.httpCode, this.headers, this.body);
         }
+    }
+
+    public final Optional<T> body() {
+        return Optional.ofNullable(this.body);
     }
 }
