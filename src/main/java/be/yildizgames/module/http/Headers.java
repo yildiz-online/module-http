@@ -27,6 +27,12 @@ import java.util.Map;
  */
 public record Headers(List<Header> headers) {
 
+    /**
+     * Create a Headers record from a map.
+     *
+     * @param map Map containing the headers.
+     * @return New Headers record, never null.
+     */
     public static Headers fromMap(Map<String, List<String>> map) {
         return new Headers(map
                 .entrySet()

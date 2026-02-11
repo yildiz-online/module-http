@@ -31,8 +31,7 @@ public interface HttpClientBuilder {
     /**
      * Provide the httpClient implementation.
      *
-     * @return The httpClient implementation, never null.
-     * @throws Exception if no implementation is found.
+     * @return The httpClient implementation, never null, but will throw a NoSuchElementException if no implementation is provided.
      */
     static HttpClientBuilder provide() {
         return ServiceLoader.load(HttpClientBuilder.class).findFirst().orElseThrow();

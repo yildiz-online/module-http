@@ -34,9 +34,9 @@ public interface HttpResponseBehavior<T> {
     /**
      * Logic to call if the response has an error code 4xx or 5xx.
      *
-     * @param httpCode
-     * @param headers
-     * @param body
+     * @param httpCode HTTP response code.
+     * @param headers  Headers of the response.
+     * @param body     Body of the response.
      */
     default void onHttpError(int httpCode, Headers headers, T body) {
     }
