@@ -18,6 +18,7 @@ package be.yildizgames.module.http;
 /**
  * Behavior to apply on an http response.
  *
+ * @param <T> Type of the response body.
  * @author Grégory Van den Borre
  */
 public interface HttpResponseBehavior<T> {

@@ -20,8 +20,8 @@ import java.util.Optional;
 
 /**
  * Response to every http request, it contains the http code, the headers and the body.
- * @param <T> Response body type.
  *
+ * @param <T> Response body type.
  * @author Grégory Van den Borre
  */
 public class HttpResponse<T> {
@@ -107,6 +107,9 @@ public class HttpResponse<T> {
 
 
     /**
+     * Simple getter for the response body.
+     * If the body is null, the optional will be empty.
+     *
      * @return The response body if present, empty optional otherwise.
      */
     public final Optional<T> body() {
