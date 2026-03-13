@@ -28,6 +28,9 @@ import java.util.List;
 public record Header(String key, List<String> value) {
 
     public Header {
+        if (key == null) {
+            throw new NullPointerException("Header key cannot be null");
+        }
         if (value == null) {
             throw new NullPointerException("Header value cannot be null");
         }

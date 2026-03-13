@@ -33,6 +33,11 @@ class HeaderTest {
     }
 
     @Test
+    void testNullKey() {
+        assertThrows(NullPointerException.class, () -> new Header(null, List.of("value1")));
+    }
+
+    @Test
     void testNullValues() {
         assertThrows(NullPointerException.class, () -> new Header("testKey", null));
     }
