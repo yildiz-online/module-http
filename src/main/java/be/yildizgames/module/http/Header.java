@@ -26,4 +26,10 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 public record Header(String key, List<String> value) {
+
+    public Header {
+        if (value == null) {
+            throw new NullPointerException("Header value cannot be null");
+        }
+    }
 }
