@@ -16,20 +16,43 @@
 package be.yildizgames.module.http;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
+ * Response to every http request, it contains the http code, the headers and the body.
+ *
+ * @param <T> Response body type.
  * @author Grégory Van den Borre
  */
 public class HttpResponse<T> {
 
+    /**
+     * Response http code.
+     */
     private final int httpCode;
 
+    /**
+     * Response body, if the call succeed, can be null otherwise.
+     */
     private final T body;
 
+    /**
+     * Response headers.
+     */
     private final Headers headers;
 
+    /**
+     * Error if the call failed, can be null otherwise.
+     */
     private final Throwable error;
 
+    /**
+     * Constructor for a successful call, the error will be null.
+     *
+     * @param httpCode Http code of the response.
+     * @param body     Body of the response.
+     * @param headers  Headers of the response.
+     */
     public HttpResponse(int httpCode, T body, Headers headers) {
         super();
         this.httpCode = httpCode;
@@ -38,6 +61,27 @@ public class HttpResponse<T> {
         this.headers = headers;
     }
 
+
+    /**
+     * Constructor for an empty successful call, body and error will be null.
+     *
+     * @param httpCode Http code of the response.
+     * @param headers  Headers of the response.
+     */
+    public HttpResponse(int httpCode, Headers headers) {
+        super();
+        this.httpCode = httpCode;
+        this.body = null;
+        this.error = null;
+        this.headers = headers;
+    }
+
+
+    /**
+     * Constructor for a failed call, the body will be null.
+     *
+     * @param error Error thrown during the call.
+     */
     public HttpResponse(Throwable error) {
         super();
         this.httpCode = -1;
@@ -46,13 +90,29 @@ public class HttpResponse<T> {
         this.headers = new Headers(List.of());
     }
 
+    /**
+     * Apply a behavior for the different possibilities: success(2xx), error(4xx or 5xx) or failure(exception).
+     *
+     * @param behavior Behavior to apply.
+     */
     public final void handle(HttpResponseBehavior<T> behavior) {
-        if(this.error != null) {
+        if (this.error != null) {
             behavior.onCallFailure(this.error);
-        } else if(HttpCode.isSuccessful(this.httpCode)) {
+        } else if (HttpCode.isSuccessful(this.httpCode)) {
             behavior.onHttpSuccess(this.httpCode, this.headers, this.body);
         } else if (HttpCode.isError(this.httpCode)) {
             behavior.onHttpError(this.httpCode, this.headers, this.body);
         }
+    }
+
+
+    /**
+     * Simple getter for the response body.
+     * If the body is null, the optional will be empty.
+     *
+     * @return The response body if present, empty optional otherwise.
+     */
+    public final Optional<T> body() {
+        return Optional.ofNullable(this.body);
     }
 }

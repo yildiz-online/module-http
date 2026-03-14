@@ -18,8 +18,21 @@ package be.yildizgames.module.http;
 import java.util.List;
 
 /**
+ * Header for an http request or response.
+ *
+ * @param key Header name.
+ * @param value Header value, can be empty, never null.
  *
  * @author Grégory Van den Borre
  */
 public record Header(String key, List<String> value) {
+
+    public Header {
+        if (key == null) {
+            throw new NullPointerException("Header key cannot be null");
+        }
+        if (value == null) {
+            throw new NullPointerException("Header value cannot be null");
+        }
+    }
 }

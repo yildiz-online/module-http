@@ -36,5 +36,5 @@ public interface HttpTransferListener {
      * @param totalTransferred Total size of all received data.
      */
     @API(status= API.Status.STABLE)
-    void received(URI uri, long lastTransferred, long totalTransferred);
+    void received(String uri, long lastTransferred, long totalTransferred);
 }
