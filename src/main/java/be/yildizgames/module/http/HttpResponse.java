@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Response to every http request, it contains the http code, the headers and the body.
+ * Response to every http request, it contains the http code, the headers and the body, or an exception in case of error.
  *
  * @param <T> Response body type.
  * @author Grégory Van den Borre
