@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.util.function.Supplier;
 
 /**
- * Http call to retrieve or send text or binary content.
+ * HTTP client contract for text and binary transfers.
  * Every call will return an http response that can either be handled or simply provide an optional body.
  *
  * @author Grégory Van den Borre

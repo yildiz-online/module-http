@@ -18,7 +18,7 @@ package be.yildizgames.module.http;
 import java.util.List;
 
 /**
- * Header for an http request or response.
+ * Single HTTP header value.
  *
  * @param key Header name.
  * @param value Header value, can be empty, never null.

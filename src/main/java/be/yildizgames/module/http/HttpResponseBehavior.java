@@ -16,7 +16,7 @@
 package be.yildizgames.module.http;
 
 /**
- * Behavior to execute when a http response is received.
+ * Callback contract for handling HTTP responses.
  *
  * @param <T> Type of the response body.
  * @author Grégory Van den Borre

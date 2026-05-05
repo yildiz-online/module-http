@@ -18,7 +18,7 @@ package be.yildizgames.module.http;
 import java.util.ServiceLoader;
 
 /**
- * Builder for http clients.
+ * Factory for HTTP client instances.
  * The implementation is provided by service loader.
  * If no implementation is found, an exception is thrown.
  * If several implementations are found, the first one is used.

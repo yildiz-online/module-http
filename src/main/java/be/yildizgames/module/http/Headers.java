@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * List of headers for an http request or response.
+ * Collection of HTTP headers.
  *
  * @param headers List of headers, can be empty, never null.
  *

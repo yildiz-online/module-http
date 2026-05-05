@@ -18,7 +18,7 @@ package be.yildizgames.module.http;
 import org.apiguardian.api.API;
 
 /**
- * Helper class to handle easily http codes.
+ * Utility for HTTP status classification.
  *
  * @author Grégory Van den Borre
  */

@@ -18,7 +18,7 @@ package be.yildizgames.module.http;
 import org.apiguardian.api.API;
 
 /**
- * Provide status progress about transfer of a file.
+ * Progress callback for file transfers.
  *
  * @author Grégory Van den Borre
  */
