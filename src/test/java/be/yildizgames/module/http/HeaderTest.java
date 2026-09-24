@@ -29,7 +29,7 @@ class HeaderTest {
         var token = "my-token";
         var header = Header.bearer(token);
         Assertions.assertNotNull(header);
-        Assertions.assertEquals("Authorization ", header.key());
+        Assertions.assertEquals("Authorization", header.key());
         Assertions.assertTrue(header.value().contains("Bearer my-token"));
     }
 
