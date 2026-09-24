@@ -46,6 +46,10 @@ public record Headers(List<Header> headers) implements Iterable<Header>{
         return new Headers(List.of());
     }
 
+    public static Headers bearer(String value) {
+        return new Headers(List.of(Header.bearer(value)));
+    }
+
     @Override
     public Iterator<Header> iterator() {
         return this.headers.iterator();

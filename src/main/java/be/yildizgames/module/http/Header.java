@@ -37,6 +37,6 @@ public record Header(String key, List<String> value) {
     }
 
     public static Header bearer(String value) {
-        return new Header("Authorization: ", List.of("Bearer " + value));
+        return new Header("Authorization ", List.of("Bearer " + value));
     }
 }
