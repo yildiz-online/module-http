@@ -20,13 +20,18 @@ import java.util.List;
 /**
  * Single HTTP header value.
  *
- * @param key Header name.
+ * @param key   Header name.
  * @param value Header value, can be empty, never null.
- *
  * @author Grégory Van den Borre
  */
 public record Header(String key, List<String> value) {
 
+    /**
+     * Constructor.
+     *
+     * @param key   Header name, cannot be null
+     * @param value Header value, can be empty, never null.
+     */
     public Header {
         if (key == null) {
             throw new NullPointerException("Header key cannot be null");
@@ -36,6 +41,12 @@ public record Header(String key, List<String> value) {
         }
     }
 
+    /**
+     * Header for a jwt token using Authorization bearer.
+     *
+     * @param value Access token to send.
+     * @return The generated header.
+     */
     public static Header bearer(String value) {
         return new Header("Authorization", List.of("Bearer " + value));
     }

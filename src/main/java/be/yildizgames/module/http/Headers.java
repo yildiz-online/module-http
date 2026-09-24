@@ -42,10 +42,19 @@ public record Headers(List<Header> headers) implements Iterable<Header>{
                 .toList());
     }
 
+    /**
+     * Empty headers.
+     * @return An empty headers.
+     */
     public static Headers empty() {
         return new Headers(List.of());
     }
 
+    /**
+     * A Jwt authentication headers only.
+     * @param value Access token.
+     * @return Headers containing only the JWT token header.
+     */
     public static Headers bearer(String value) {
         return new Headers(List.of(Header.bearer(value)));
     }
