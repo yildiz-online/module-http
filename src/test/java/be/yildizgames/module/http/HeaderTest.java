@@ -15,6 +15,7 @@
  */
 package be.yildizgames.module.http;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,6 +23,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HeaderTest {
+
+    @Test
+    void bearerHeader() {
+        var token = "my-token";
+        var header = Header.bearer(token);
+        Assertions.assertNotNull(header);
+        Assertions.assertEquals("Authorization: ", header.key());
+        Assertions.assertTrue(header.value().contains("Bearer my-token"));
+    }
 
     @Test
     void testConstructor() {
