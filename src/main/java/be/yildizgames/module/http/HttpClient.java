@@ -30,13 +30,30 @@ import java.util.function.Supplier;
 public interface HttpClient {
 
     /**
+     * Constant empty header to reuse.
+     */
+    Headers EMPTY_HEADERS = Headers.empty();
+
+    /**
      * Request the text content.
      *
      * @param to URI to reach, must be a valid URI, cannot be null.
      * @return The response to the call to the given URI, the body is a String, it can be empty, never null.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<String> getText(final String to);
+    default HttpResponse<String> getText(final String to) {
+        return getText(to, EMPTY_HEADERS);
+    }
+
+    /**
+     * Request the text content.
+     *
+     * @param to      URI to reach, must be a valid URI, cannot be null.
+     * @param headers Request headers.
+     * @return The response to the call to the given URI, the body is a String, it can be empty, never null.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<String> getText(final String to, Headers headers);
 
     /**
      * Send a text content and receive a text response.
@@ -46,7 +63,22 @@ public interface HttpClient {
      * @param mime    Data mime type.
      * @return A text response, it can be empty.
      */
-    HttpResponse<String> postText(final String to, final String content, String mime);
+    @API(status = API.Status.STABLE)
+    default HttpResponse<String> postText(final String to, final String content, String mime) {
+        return this.postText(to, EMPTY_HEADERS, content, mime);
+    }
+
+    /**
+     * Send a text content and receive a text response.
+     *
+     * @param to      Destination.
+     * @param headers Request headers.
+     * @param content Text to send.
+     * @param mime    Data mime type.
+     * @return A text response, it can be empty.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<String> postText(String to, Headers headers, String content, String mime);
 
     /**
      * Request a binary content and persist it as a file.
@@ -57,7 +89,21 @@ public interface HttpClient {
      * @return The response to the call to the given URI, the body is the provided path for the file to save, it can be empty, never null.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<Path> getFile(String to, Path destination, HttpTransferListener transferListener);
+    default HttpResponse<Path> getFile(String to, Path destination, HttpTransferListener transferListener) {
+        return getFile(to, EMPTY_HEADERS, destination, transferListener);
+    }
+
+    /**
+     * Request a binary content and persist it as a file.
+     *
+     * @param to               URI to reach, must be a valid URI, cannot be null.
+     * @param headers          Request headers.
+     * @param destination      Path to the file to create, cannot be null.
+     * @param transferListener Listener to track the download progress, can be null.
+     * @return The response to the call to the given URI, the body is the provided path for the file to save, it can be empty, never null.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<Path> getFile(String to, Headers headers, Path destination, HttpTransferListener transferListener);
 
     /**
      * Request a binary content and persist it as a file.
@@ -67,7 +113,20 @@ public interface HttpClient {
      * @return The response to the call to the given URI, the body is the provided path for the file to save, it can be empty, never null.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<Path> getFile(String to, Path destination);
+    default HttpResponse<Path> getFile(String to, Path destination) {
+        return getFile(to, EMPTY_HEADERS, destination);
+    }
+
+    /**
+     * Request a binary content and persist it as a file.
+     *
+     * @param to          URI to reach, must be a valid URI, cannot be null.
+     * @param headers     Request headers.
+     * @param destination Path to the file to create, cannot be null.
+     * @return The response to the call to the given URI, the body is the provided path for the file to save, it can be empty, never null.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<Path> getFile(String to, Headers headers, Path destination);
 
     /**
      * Send a file and receive a text response.
@@ -78,7 +137,21 @@ public interface HttpClient {
      * @return A text response, it can be empty.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<String> postFile(String to, Path content, String mime);
+    default HttpResponse<String> postFile(String to, Path content, String mime) {
+        return this.postFile(to, EMPTY_HEADERS, content, mime);
+    }
+
+    /**
+     * Send a file and receive a text response.
+     *
+     * @param to      Destination.
+     * @param headers Request headers.
+     * @param content File to send.
+     * @param mime    File mime type.
+     * @return A text response, it can be empty.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<String> postFile(String to, Headers headers, Path content, String mime);
 
     /**
      * Request a binary content as InputStream.
@@ -87,7 +160,19 @@ public interface HttpClient {
      * @return The response to the call to the given URI, the body is the InputStream to retrieve the binary content, never null.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<InputStream> getInputStream(final String to);
+    default HttpResponse<InputStream> getInputStream(String to) {
+        return getInputStream(to, EMPTY_HEADERS);
+    }
+
+    /**
+     * Request a binary content as InputStream.
+     *
+     * @param to      URI to reach, must be a valid URI, cannot be null.
+     * @param headers Request headers.
+     * @return The response to the call to the given URI, the body is the InputStream to retrieve the binary content, never null.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<InputStream> getInputStream(String to, Headers headers);
 
     /**
      * Send a binary content as InputStream and receive a text response.
@@ -98,7 +183,21 @@ public interface HttpClient {
      * @return A text response, it can be empty.
      */
     @API(status = API.Status.STABLE)
-    HttpResponse<String> postInputStream(String to, Supplier<InputStream> content, String mime);
+    default HttpResponse<String> postInputStream(String to, Supplier<InputStream> content, String mime) {
+        return this.postInputStream(to, EMPTY_HEADERS, content, mime);
+    }
+
+    /**
+     * Send a binary content as InputStream and receive a text response.
+     *
+     * @param to      Destination.
+     * @param headers Request headers.
+     * @param content Data to send.
+     * @param mime    Data mime type.
+     * @return A text response, it can be empty.
+     */
+    @API(status = API.Status.STABLE)
+    HttpResponse<String> postInputStream(String to, Headers headers, Supplier<InputStream> content, String mime);
 
 
 }

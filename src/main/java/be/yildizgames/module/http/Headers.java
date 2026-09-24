@@ -15,6 +15,7 @@
  */
 package be.yildizgames.module.http;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import java.util.Map;
  *
  * @author Grégory Van den Borre
  */
-public record Headers(List<Header> headers) {
+public record Headers(List<Header> headers) implements Iterable<Header>{
 
     /**
      * Create a Headers record from a map.
@@ -41,4 +42,12 @@ public record Headers(List<Header> headers) {
                 .toList());
     }
 
+    public static Headers empty() {
+        return new Headers(List.of());
+    }
+
+    @Override
+    public Iterator<Header> iterator() {
+        return this.headers.iterator();
+    }
 }

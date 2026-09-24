@@ -35,4 +35,8 @@ public record Header(String key, List<String> value) {
             throw new NullPointerException("Header value cannot be null");
         }
     }
+
+    public static Header bearer(String value) {
+        return new Header("Authorization: Bearer", List.of(value));
+    }
 }
