@@ -26,6 +26,10 @@ import java.util.List;
  */
 public record Header(String key, List<String> value) {
 
+    public Header(String key, String value) {
+        this(key, List.of(value));
+    }
+
     /**
      * Constructor.
      *

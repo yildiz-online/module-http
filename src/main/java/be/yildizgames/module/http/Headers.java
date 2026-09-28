@@ -28,6 +28,10 @@ import java.util.Map;
  */
 public record Headers(List<Header> headers) implements Iterable<Header>{
 
+    public Headers(Header header) {
+        this(List.of(header));
+    }
+
     /**
      * Create a Headers record from a map.
      *
@@ -56,7 +60,7 @@ public record Headers(List<Header> headers) implements Iterable<Header>{
      * @return Headers containing only the JWT token header.
      */
     public static Headers bearer(String value) {
-        return new Headers(List.of(Header.bearer(value)));
+        return new Headers(Header.bearer(value));
     }
 
     @Override
