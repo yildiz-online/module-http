@@ -49,7 +49,7 @@ class HeaderTest {
 
     @Test
     void testNullValues() {
-        assertThrows(NullPointerException.class, () -> new Header("testKey", null));
+        assertThrows(NullPointerException.class, () -> new Header("testKey",(List<String>)null));
     }
 
     @Test
